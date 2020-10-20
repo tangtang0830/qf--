@@ -1,22 +1,27 @@
- .home .el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
-  }
-  .home .el-carousel__item h3 img{
-    width: 100%;
-  }
-  .home .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-  
-  .home .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
+.ipt .el-input__inner {
+  width: 40% !important;
+}
   /* 登入页表单输入框样式 */
-
+/* 
 .login-page .el-input__inner {
   width: 83% !important;
+} */
+/* 登入输入框颜色 */
+
+.loginContainer .el-input__inner {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  height: 40px;
+  line-height: 100%;
+  overflow: hidden;
+  color: #fff;
+  border: 0.04761905rem solid #fff;
+  background: none;
+  padding-left: 0.95238095rem;
+  font-size: .76190476rem!important;
+}
+/* 登入框label文字颜色 */
+
+.login .el-form-item__label {
+  color: #fff !important;
 }
