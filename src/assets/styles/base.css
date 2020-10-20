@@ -15,3 +15,9 @@ input{
     border: 0;
     border: 1px solid #ccc;
 }
+#app, .home,.home .el-container{
+    height: 100%;
+}
+.clearfix{
+    overflow: hidden;
+}
