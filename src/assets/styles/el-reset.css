@@ -1,0 +1,22 @@
+ .home .el-carousel__item h3 {
+    color: #475669;
+    font-size: 18px;
+    opacity: 0.75;
+    line-height: 300px;
+    margin: 0;
+  }
+  .home .el-carousel__item h3 img{
+    width: 100%;
+  }
+  .home .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  
+  .home .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+  /* 登入页表单输入框样式 */
+
+.login-page .el-input__inner {
+  width: 83% !important;
+}
