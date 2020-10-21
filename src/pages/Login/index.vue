@@ -20,10 +20,11 @@
         </el-form-item>
         <el-form-item label="密 码" style="color:#fff" prop="password">
           <el-input
-            type="text"
+            type="password" 
+            @keydown.native.enter="submitForm('loginForm')"
             v-model="loginForm.password"
-            autocomplete="off"
-          ></el-input>
+            autocomplete="off" 
+           ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('loginForm')"
@@ -42,7 +43,7 @@
     ></video>
   </div>
 </template>
- <script>
+<script>
 //  登入逻辑的实现
 
 // 1.收集用户输入的username&password传递给后端
@@ -54,8 +55,8 @@
 // 4.展示token校验正确的数据
 
 // 5。校验不通过，跳转到登录页
-import { login } from "@/api"
-import { mapMutations} from "vuex"
+import { login } from "@/api";
+import { mapMutations } from "vuex";
 export default {
   data() {
     // 校验用户名
@@ -93,41 +94,44 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           // 打开登录加载动画
-          
+
           const loading = this.$loading({
-            lock:true,
-            text:"正在登录.....",
-            spinner:"el-icon-loading",
-            background:"rgba(0,0,0,0.7)"
-          })
+            lock: true,
+            text: "正在登录.....",
+            spinner: "el-icon-loading",
+            background: "rgba(0,0,0,0.7)"
+          });
 
           //代表本地校验通过
           // console.log(this.loginForm.username,this.loginForm.password)
           let { username, password } = this.loginForm;
-         
+
           //发送登入请求
-           login(username, password)
-              .then(res => {
-                console.log(res);
-                //服务器响应，关闭loading动画
-                loading.close()
-                if(res.data.state){
-                  this.$message.success("登录成功")
-                  // 用户名密码正确
-                  localStorage.setItem("qf-token",res.data.token)
-                  localStorage.setItem("qf-userInfo",JSON.stringify(res.data.userInfo))
-                  // 更改vuex中state["username"]的值
-                  this.SET_USERINFO(res.data.userInfo)
-                  // 跳转到主页
-                  this.$router.push("/")
-                }else {
-                  //用户名或者密码错误
-                  this.$message.error('用户名密码错误')
-                }
-              })
-              .catch(err => {
-                console.log(err);
-              })
+          login(username, password)
+            .then(res => {
+              console.log(res);
+              //服务器响应，关闭loading动画
+              loading.close();
+              if (res.data.state) {
+                this.$message.success("登录成功");
+                // 用户名密码正确
+                localStorage.setItem("qf-token", res.data.token);
+                localStorage.setItem(
+                  "qf-userInfo",
+                  JSON.stringify(res.data.userInfo)
+                );
+                // 更改vuex中state["username"]的值
+                this.SET_USERINFO(res.data.userInfo);
+                // 跳转到主页
+                this.$router.push("/");
+              } else {
+                //用户名或者密码错误
+                this.$message.error("用户名密码错误");
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         } else {
           console.log("error submit!!");
           return false;

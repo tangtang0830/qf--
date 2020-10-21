@@ -1,13 +1,14 @@
-import axios from "./config"
+import axios from "./config";
 //登入
-export const login = (username, password) => axios({
+export const login = (username, password) =>
+  axios({
     url: "/users/login",
-    method: 'post',
+    method: "post",
     data: {
-        username,
-        password
+      username,
+      password
     }
-})
+  });
 
 // 获取登录日志
-export const getLoginLog =() =>axios.get("/getloginlog")
+export const getLoginLog = () => axios.get("/getloginlog");
