@@ -9,6 +9,10 @@ export default {
     return {
       input: ""
     };
-  }
+  },
+  mounted() {
+    console.log(123);
+    // this.$store.dispatch("FETCH_MENULIST")
+  },
 };
 </script>

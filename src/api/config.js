@@ -7,6 +7,10 @@ axios.defaults.baseURL =
 
 axios.defaults.withCredentials = true; //允许请求携带认证
 
+import NProgress from "nprogress"
+// 中断请求属性
+export let CancelToken = axios.CancelToken;
+
 // 创建请求拦截器，可以给每个请求都携带上想要传递的内容
 axios.interceptors.request.use(config => {
   // 登录和注册是不需要携带token
@@ -19,6 +23,7 @@ axios.interceptors.request.use(config => {
 }),
   // 响应拦截
   axios.interceptors.response.use(config => {
+
     // console.log(config);
     let { data } = config;
     if (data.code === "1004" || data.code == "10022") {
@@ -27,7 +32,9 @@ axios.interceptors.request.use(config => {
       // alert ("登入信息失效，请重新登录")
       // console.log(ElementUI);
       ElementUI.Message.error("登入信息失效，请重新登入");
+      localStorage.removeItem("qf-token")
       router.push("/login");
+      window.location.reload()
     }
     return config;
   });
@@ -35,4 +42,7 @@ axios.interceptors.request.use(config => {
 axios.create({
   timeout: 4000
 });
+// export{
+//   CancelToken as default
+// }
 export default axios;

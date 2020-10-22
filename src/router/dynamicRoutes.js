@@ -21,8 +21,9 @@ const dynamicRoutes =[
         // ]
       },
       {
-        path:"*",
-        components:()=>import(/* webpackChunName:"page404" */"../pages/Page404")
-      }
+        path: '*',
+        component: () => import(/*webpackChunkName:'page404' */'../pages/Page404')
+    }
+
 ]
 export default dynamicRoutes

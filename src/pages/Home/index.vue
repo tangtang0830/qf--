@@ -3,30 +3,14 @@
     <el-container>
       <!-- 侧边菜单栏 -->
       <el-aside width="200">
-        <el-menu
-          default-active="1-4"
-          class="el-menu-vertical-demo"
-          :router="true"
-          :collapse="isCollapse"
-        >
-          <!-- 具有子菜单 -->
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-s-custom"></i>
-              <span slot="title">菜单</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/student">学员信息</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group>
-              <el-menu-item index="/product">项目管理</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <!-- 常规菜单 -->
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-          </el-menu-item>
+    
+        <el-menu :default-active="$route.path"
+                 class="el-menu-vertical-demo"
+      @open="handleOpen"
+      @close="handleClose"
+      :router="true"
+      :collapse="isCollapse">
+          <qf-sub-menu :sideMenu="menuList"></qf-sub-menu>
         </el-menu>
       </el-aside>
       <el-container>
@@ -60,6 +44,10 @@
         </el-header>
         <!-- main内容布局 -->
         <el-main>
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/Welcome' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{path:crumb.path}" v-for="crumb in crumbs" :key="crumb.id">{{crumb.meta.name}}</el-breadcrumb-item>
+          </el-breadcrumb>
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -67,9 +55,9 @@
   </div>
 </template>
 <script>
-import { getLoginLog } from "@/api";
+// import { getLoginLog } from "@/api";
 import subMenu from "./subMenu";
-import { mapActions} from "vuex";
+import { mapActions } from "vuex";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -78,15 +66,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userInfo"])
+    ...mapState(["userInfo", "menuList", "crumbs"])
   },
-components: {
-      subMenu
-    },
+  components: {
+        subMenu
+      },
   mounted() {
-    getLoginLog().then(res => {
-      console.log(res);
-    });
+    // getLoginLog().then(res => {
+    //   console.log(res);
+    // });
+    // this.$store.dispatch("FETCH_MENULIST")
   },
   methods: {
     quit() {
@@ -103,9 +92,8 @@ components: {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     }
-  
   }
-}
+};
 </script>
 <style scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
@@ -132,7 +120,8 @@ components: {
   height: 60px;
   position: relative;
 }
-.icon-toggle-left,.icon-toggle-right {
+.icon-toggle-left,
+.icon-toggle-right {
   color: #fff;
   cursor: pointer;
   font-size: 35px;
