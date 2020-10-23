@@ -3,13 +3,14 @@
     <el-container>
       <!-- 侧边菜单栏 -->
       <el-aside width="200">
-    
-        <el-menu :default-active="$route.path"
-                 class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      :router="true"
-      :collapse="isCollapse">
+        <el-menu
+          :default-active="$route.path"
+          class="el-menu-vertical-demo"
+          @open="handleOpen"
+          @close="handleClose"
+          :router="true"
+          :collapse="isCollapse"
+        >
           <qf-sub-menu :sideMenu="menuList"></qf-sub-menu>
         </el-menu>
       </el-aside>
@@ -19,7 +20,13 @@
           <el-row type="flex" class="row-bg" justify="space-between">
             <el-col :span="6">
               <div class="grid-content">
-                <i :class="['iconfont',isCollapse?'icon-toggle-left':'icon-toggle-right']" @click="isCollapse=!isCollapse"></i>
+                <i
+                  :class="[
+                    'iconfont',
+                    isCollapse ? 'icon-toggle-left' : 'icon-toggle-right ',
+                  ]"
+                  @click="isCollapse = !isCollapse"
+                ></i>
               </div>
             </el-col>
             <el-col :span="6">
@@ -45,8 +52,15 @@
         <!-- main内容布局 -->
         <el-main>
           <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/Welcome' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{path:crumb.path}" v-for="crumb in crumbs" :key="crumb.id">{{crumb.meta.name}}</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/Welcome' }"
+              >首页</el-breadcrumb-item
+            >
+            <el-breadcrumb-item
+              :to="{ path: crumb.path }"
+              v-for="crumb in crumbs"
+              :key="crumb.id"
+              >{{ crumb.meta.name }}</el-breadcrumb-item
+            >
           </el-breadcrumb>
           <router-view></router-view>
         </el-main>
@@ -69,8 +83,8 @@ export default {
     ...mapState(["userInfo", "menuList", "crumbs"])
   },
   components: {
-        subMenu
-      },
+    subMenu
+  },
   mounted() {
     // getLoginLog().then(res => {
     //   console.log(res);

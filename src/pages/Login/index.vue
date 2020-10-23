@@ -20,11 +20,11 @@
         </el-form-item>
         <el-form-item label="密 码" style="color:#fff" prop="password">
           <el-input
-            type="password" 
+            type="password"
             @keydown.native.enter="submitForm('loginForm')"
             v-model="loginForm.password"
-            autocomplete="off" 
-           ></el-input>
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('loginForm')"
